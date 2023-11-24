@@ -1,0 +1,18 @@
+CREATE TABLE LIBRO (
+    ID INT NOT NULL AUTO_INCREMENT,
+    TITULO VARCHAR(45) NOT NULL,
+    AUTOR VARCHAR(45) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+
+INSERT INTO `libro` (`ID`, `TITULO`, `AUTOR`) VALUES 
+			(NULL, 'Harry Potter', 'JK Rowling'), 
+			(NULL, '100 años de soledad', 'Gabriel García Marque'), 
+			(NULL, '1984', 'George Orwell'), 
+			(NULL, 'En busca del tiempo perdido', 'Marcel Proust'), 
+			(NULL, 'Matar a un ruiseñor', 'Harper Lee'), 
+			(NULL, 'El señor de los anillos', 'J.R.R. Tolkien'), 
+			(NULL, 'Orgullo y prejuicio', 'Jane Austen'), 
+			(NULL, 'Crimen y castigo', 'Fyodor Dostoevsky'), 
+			(NULL, 'Don Quijote de la Mancha', 'Miguel de Cervantes');
