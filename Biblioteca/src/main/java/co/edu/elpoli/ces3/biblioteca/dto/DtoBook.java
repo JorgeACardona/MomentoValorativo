@@ -7,13 +7,13 @@ public class DtoBook {
 
     private String autor;
 
-    public DtoBook(int id, String document, String name){
+    public DtoBook(int id, String titulo, String autor){
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
     }
 
-    public DtoBook(String document, String name){
+    public DtoBook(String titulo, String autor){
         this.titulo = titulo;
         this.autor = autor;
     }

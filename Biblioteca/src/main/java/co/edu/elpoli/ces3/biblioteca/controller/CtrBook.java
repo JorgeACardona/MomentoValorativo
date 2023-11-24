@@ -1,101 +1,83 @@
 package co.edu.elpoli.ces3.biblioteca.controller;
 
+import co.edu.elpoli.ces3.biblioteca.dto.DtoBook;
+import co.edu.elpoli.ces3.biblioteca.model.Book;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CtrBook {
 
-    private Student modelStudent;
+    private Book modelBook;
 
     public CtrBook(){
-        modelStudent = new Student();
+        modelBook = new Book();
     }
 
-    public DtoStudent addStudent(DtoStudent student){
+    public DtoBook addBook(DtoBook book){
         try {
-            Student newStudent = modelStudent.create(student);
-            return new DtoStudent(newStudent.getId(), newStudent.getDocument(), newStudent.getName());
+            Book newBook = modelBook.create(book);
+            return new DtoBook(newBook.getId(), newBook.getTitulo(), newBook.getAutor());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public ArrayList<DtoStudent> getAllStudents() {
+    public ArrayList<DtoBook> getAllBooks() {
         try {
-            ArrayList<Student> students = modelStudent.all(); // Llama al método 'all' del modelo
-            ArrayList<DtoStudent> dtoStudents = new ArrayList<>();
+            ArrayList<Book> books = modelBook.all(); // Llama al método 'all' del modelo
+            ArrayList<DtoBook> dtoBooks = new ArrayList<>();
 
-            for (Student student : students) {
-                DtoStudent dtoStudent = new DtoStudent(
-                        student.getId(),
-                        student.getDocument(),
-                        student.getName()
+            for (Book book : books) {
+                DtoBook dtoBook = new DtoBook(
+                        book.getId(),
+                        book.getTitulo(),
+                        book.getAutor()
                 );
-                dtoStudents.add(dtoStudent);
+                dtoBooks.add(dtoBook);
             }
 
-            return dtoStudents;
+            return dtoBooks;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public DtoStudent getStudentById(int studentId) {
+    public DtoBook getBookById(int bookId) {
         try {
-            Student student = modelStudent.findById(studentId);
-            if (student != null) {
-                return new DtoStudent(student.getId(), student.getDocument(), student.getName());
+            Book book = modelBook.findById(bookId);
+            if (book != null) {
+                return new DtoBook(book.getId(), book.getTitulo(), book.getAutor());
             } else {
-                throw new RuntimeException("Estudiante no encontrado");
+                throw new RuntimeException("Libro no encontrado");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public DtoStudent updateStudent(int studentId, DtoStudent updatedStudent) {
+    public DtoBook updateBook(int bookId, DtoBook updatedBook) {
         try {
-            Student student = new Student(
-                    studentId,
-                    updatedStudent.getDocument(),
-                    updatedStudent.getName()
+            Book book = new Book(
+                    bookId,
+                    updatedBook.getTitulo(),
+                    updatedBook.getAutor()
 
             );
 
-            Student updated = modelStudent.update(student);
-            return new DtoStudent(updated.getId(), updated.getDocument(), updated.getName());
+            Book updated = modelBook.update(book);
+            return new DtoBook(updated.getId(), updated.getTitulo(), updated.getAutor());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void deleteStudent(int studentId) {
+    public void deleteBook(int bookId) {
         try {
-            modelStudent.delete(studentId);
+            modelBook.delete(bookId);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public DtoStudent patchStudent(int studentId, DtoStudent updatedStudent) {
-        try {
-            Student existingStudent = modelStudent.findById(studentId);
-            if (existingStudent != null) {
-                if (updatedStudent.getName() != null) {
-                    existingStudent.setName(updatedStudent.getName());
-                }
-                if (updatedStudent.getDocument() != null) {
-                    existingStudent.setDocument(updatedStudent.getDocument());
-                }
-
-                modelStudent.update(existingStudent);
-
-                return new DtoStudent(existingStudent.getId(), existingStudent.getDocument(), existingStudent.getName());
-            } else {
-                throw new RuntimeException("Estudiante no encontrado");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
